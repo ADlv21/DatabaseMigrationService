@@ -1,9 +1,6 @@
 package com.example.dbmgr.controller;
 
 import com.example.dbmgr.payloads.DBDTO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,10 +12,8 @@ import java.util.UUID;
 @RestController
 public class DatabaseController {
 
-    Logger logger = LoggerFactory.getLogger(DatabaseController.class);
-
     @PostMapping("/")
-    private DBDTO postgreSQLMigrationDownloadDB(@RequestBody DBDTO dbdto){
+    private DBDTO postgreSQLMigration(@RequestBody DBDTO dbdto){
 
         String fileName = UUID.randomUUID().toString();
         String pathToSaveFileTo = fileName + ".sql";
@@ -41,7 +36,6 @@ public class DatabaseController {
             int exitCode = process.waitFor();
 
             if (exitCode == 0) {
-                logger.info("Command executed successfully");
                 System.out.println("Command executed successfully");
             } else {
                 System.err.println("Command failed with exit code: " + exitCode);
@@ -65,7 +59,6 @@ public class DatabaseController {
             int exitCode = process.waitFor();
 
             if (exitCode == 0) {
-                logger.info("Command executed successfully");
                 System.out.println("Command executed successfully");
             } else {
                 System.err.println("Command failed with exit code: " + exitCode);
@@ -74,19 +67,14 @@ public class DatabaseController {
             e.printStackTrace();
         }
 
-        /*File myObj = new File(pathToSaveFileTo);
+        File myObj = new File(pathToSaveFileTo);
         if (myObj.delete()) {
             System.out.println("Deleted the file: " + myObj.getName());
         } else {
             System.out.println("Failed to delete the file.");
-        }*/
+        }
 
         return dbdto;
     }
 
-    @GetMapping("/")
-    DBDTO printTime(@RequestBody DBDTO dbdto){
-        String commandUpload = String.format("psql --host %s --username %s --file %s",dbdto.getMigrationServerHostName(), dbdto.getMigrationServerUserName() , "ceb0bf02-4fc2-470c-a1c8-72ee5f39bbcd.sql");
-        return dbdto;
-    }
 }

@@ -1,0 +1,10 @@
+{
+  "baseHostName":"https://console.cloud.google.com/sql/instances/gcp/overview?cloudshell=false&project=singular-arbor-401611",
+  "migrationServerHostName":"db149.cucj5xhr5ztk.ap-south-1.rds.amazonaws.com",
+  "baseUserName":"postgres",
+  "migrationServerUserName":"postgres",
+  "basePassword":"",
+  "migrationServerPassword":"",
+  "basePort":5432,
+  "migrationPort":5432
+}
